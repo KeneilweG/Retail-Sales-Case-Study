@@ -1,0 +1,911 @@
+{
+  "datasets": [
+    {
+      "name": "bf3e6583",
+      "displayName": "Retail Sales Analysis",
+      "queryLines": [
+        "SELECT\r\n",
+        "  COUNT(DISTINCT `Transaction ID`) AS number_of_transactions,\r\n",
+        "  COUNT(DISTINCT `Customer ID`) AS number_of_customers,\r\n",
+        "  SUM(`Total Amount`) AS total_amount,\r\n",
+        "  SUM(`Quantity`) AS total_quantity,\r\n",
+        "  SUM(`Price per unit`) AS total_price,\r\n",
+        "\r\n",
+        "  CASE \r\n",
+        "    WHEN `age` BETWEEN 0 AND 15 THEN '01. 0-15: Kids'\r\n",
+        "    WHEN `age` BETWEEN 16 AND 20 THEN '02. 16-20: Teens'\r\n",
+        "    WHEN `age` BETWEEN 21 and 30 THEN '03. 21-30: Young Adults'\r\n",
+        "    WHEN `age` BETWEEN 31 AND 40 THEN '04. 31-40: Adults'\r\n",
+        "    ELSE '05. 41+: Seniors'\r\n",
+        "  END AS age_group,\r\n",
+        "  gender,\r\n",
+        "  `Product Category`,\r\n",
+        "\r\n",
+        "  case \r\n",
+        "    WHEN `total amount` BETWEEN 0 AND 100 then '01. <100: Low'\r\n",
+        "    WHEN `total amount` BETWEEN 101 AND 500 THEN '02. 101-500: Medium'\r\n",
+        "    ELSE '03. >500: High'\r\n",
+        "  END AS revenue_group,\r\n",
+        "\r\n",
+        "  dayname(`Date`) AS day,\r\n",
+        "  dayofweek(`Date`) AS day_of_week,\r\n",
+        "  date_format(`Date`, 'MMMM') AS month_name,\r\n",
+        "  month(`Date`) AS month,\r\n",
+        "  year(`Date`) AS purchase_date\r\n",
+        "  \r\n",
+        "FROM workspace.default.retail_sales_dataset_1\r\n",
+        "GROUP BY ALL\r\n",
+        "LIMIT 1000;"
+      ]
+    },
+    {
+      "name": "90d1079a",
+      "displayName": "new_query_2025_08_26_4_48_pm_2025_08_26",
+      "queryLines": [
+        "SELECT * FROM workspace.default.new_query_2025_08_26_4_48_pm_2025_08_26"
+      ]
+    },
+    {
+      "name": "836444c1",
+      "displayName": "retail_2",
+      "queryLines": [
+        "SELECT *\r\n",
+        "FROM workspace.default.retail_sales_dataset_1\r\n",
+        "LIMIT 1000;"
+      ]
+    }
+  ],
+  "pages": [
+    {
+      "name": "d88d6960",
+      "displayName": "Untitled page",
+      "layout": [
+        {
+          "widget": {
+            "name": "7e5f6841",
+            "multilineTextboxSpec": {
+              "lines": [
+                "RETAIL SALES DASHBOARD💰"
+              ]
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 0,
+            "width": 3,
+            "height": 1
+          }
+        },
+        {
+          "widget": {
+            "name": "0ca93517",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "90d1079a",
+                  "fields": [
+                    {
+                      "name": "sum(total_amount)",
+                      "expression": "SUM(`total_amount`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 2,
+              "widgetType": "counter",
+              "encodings": {
+                "value": {
+                  "fieldName": "sum(total_amount)",
+                  "format": {
+                    "type": "number-currency",
+                    "currencyCode": "USD",
+                    "abbreviation": "compact",
+                    "decimalPlaces": {
+                      "type": "max",
+                      "places": 2
+                    }
+                  },
+                  "displayName": "Sum of total_amount"
+                }
+              },
+              "frame": {
+                "title": "Total Amount",
+                "showTitle": true
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 1,
+            "width": 1,
+            "height": 2
+          }
+        },
+        {
+          "widget": {
+            "name": "6f6281d6",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "bf3e6583",
+                  "fields": [
+                    {
+                      "name": "count(number_of_customers)",
+                      "expression": "COUNT(`number_of_customers`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 2,
+              "widgetType": "counter",
+              "encodings": {
+                "value": {
+                  "fieldName": "count(number_of_customers)",
+                  "format": {
+                    "type": "number-plain",
+                    "abbreviation": "compact",
+                    "decimalPlaces": {
+                      "type": "max",
+                      "places": 2
+                    }
+                  },
+                  "displayName": "Count of number_of_customers"
+                }
+              },
+              "frame": {
+                "title": "# of Customers",
+                "showTitle": true
+              }
+            }
+          },
+          "position": {
+            "x": 1,
+            "y": 1,
+            "width": 1,
+            "height": 2
+          }
+        },
+        {
+          "widget": {
+            "name": "a7ce5afe",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "bf3e6583",
+                  "fields": [
+                    {
+                      "name": "sum(number_of_transactions)",
+                      "expression": "SUM(`number_of_transactions`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 2,
+              "widgetType": "counter",
+              "encodings": {
+                "value": {
+                  "fieldName": "sum(number_of_transactions)",
+                  "displayName": "Sum of number_of_transactions"
+                }
+              },
+              "frame": {
+                "title": "# of Transactions",
+                "showTitle": true
+              }
+            }
+          },
+          "position": {
+            "x": 2,
+            "y": 1,
+            "width": 1,
+            "height": 2
+          }
+        },
+        {
+          "widget": {
+            "name": "74ee3ec8",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "836444c1",
+                  "fields": [
+                    {
+                      "name": "monthly(Date)",
+                      "expression": "DATE_TRUNC(\"MONTH\", `Date`)"
+                    },
+                    {
+                      "name": "sum(Total Amount)",
+                      "expression": "SUM(`Total Amount`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 3,
+              "widgetType": "line",
+              "encodings": {
+                "x": {
+                  "fieldName": "monthly(Date)",
+                  "scale": {
+                    "type": "temporal"
+                  },
+                  "axis": {
+                    "hideTitle": true,
+                    "hideLabels": false
+                  },
+                  "displayName": "Date"
+                },
+                "y": {
+                  "fieldName": "sum(Total Amount)",
+                  "scale": {
+                    "type": "quantitative"
+                  },
+                  "axis": {
+                    "hideTitle": true
+                  },
+                  "displayName": "Sum of Total Amount"
+                }
+              },
+              "frame": {
+                "title": "Total Amount Distribution By Month",
+                "showTitle": true
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 3,
+            "width": 3,
+            "height": 4
+          }
+        },
+        {
+          "widget": {
+            "name": "b0e6b2a8",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "bf3e6583",
+                  "fields": [
+                    {
+                      "name": "sum(total_amount)",
+                      "expression": "SUM(`total_amount`)"
+                    },
+                    {
+                      "name": "age_group",
+                      "expression": "`age_group`"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 3,
+              "widgetType": "pie",
+              "encodings": {
+                "angle": {
+                  "fieldName": "sum(total_amount)",
+                  "scale": {
+                    "type": "quantitative"
+                  },
+                  "displayName": "Sum of total_amount"
+                },
+                "color": {
+                  "fieldName": "age_group",
+                  "scale": {
+                    "type": "categorical"
+                  },
+                  "legend": {
+                    "position": "right"
+                  },
+                  "displayName": "age_group"
+                },
+                "label": {
+                  "show": true
+                }
+              },
+              "frame": {
+                "title": "Total Amount Distribution Per Age Group",
+                "showTitle": true
+              }
+            }
+          },
+          "position": {
+            "x": 3,
+            "y": 3,
+            "width": 3,
+            "height": 4
+          }
+        },
+        {
+          "widget": {
+            "name": "a602487e",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "bf3e6583",
+                  "fields": [
+                    {
+                      "name": "gender",
+                      "expression": "`gender`"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 3,
+              "widgetType": "pie",
+              "encodings": {
+                "color": {
+                  "fieldName": "gender",
+                  "scale": {
+                    "type": "categorical",
+                    "mappings": [
+                      {
+                        "value": "Female",
+                        "color": {
+                          "themeColorType": "visualizationColors",
+                          "position": 1
+                        }
+                      },
+                      {
+                        "value": "Male",
+                        "color": {
+                          "themeColorType": "visualizationColors",
+                          "position": 2
+                        }
+                      }
+                    ]
+                  },
+                  "displayName": "gender"
+                }
+              },
+              "frame": {
+                "title": "Revenue & Quantity Per Month",
+                "showTitle": true
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 7,
+            "width": 3,
+            "height": 6
+          }
+        },
+        {
+          "widget": {
+            "name": "7311fc32",
+            "queries": [
+              {
+                "name": "dashboards/01f08290c009178cb573647f539e4607/datasets/01f0829217171429a7b5bf680e6c4c50_purchase_date",
+                "query": {
+                  "datasetName": "bf3e6583",
+                  "fields": [
+                    {
+                      "name": "purchase_date",
+                      "expression": "`purchase_date`"
+                    },
+                    {
+                      "name": "purchase_date_associativity",
+                      "expression": "COUNT_IF(`associative_filter_predicate_group`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 2,
+              "widgetType": "filter-date-picker",
+              "encodings": {
+                "fields": [
+                  {
+                    "fieldName": "purchase_date",
+                    "displayName": "purchase_date",
+                    "queryName": "dashboards/01f08290c009178cb573647f539e4607/datasets/01f0829217171429a7b5bf680e6c4c50_purchase_date"
+                  }
+                ]
+              },
+              "frame": {
+                "showTitle": true,
+                "title": "Purchase Date"
+              }
+            }
+          },
+          "position": {
+            "x": 3,
+            "y": 0,
+            "width": 2,
+            "height": 1
+          }
+        },
+        {
+          "widget": {
+            "name": "c5ef982e",
+            "queries": [
+              {
+                "name": "dashboards/01f08290c009178cb573647f539e4607/datasets/01f082993a5113f8b5facd2e0d3f188e_Product Category",
+                "query": {
+                  "datasetName": "836444c1",
+                  "fields": [
+                    {
+                      "name": "Product Category",
+                      "expression": "`Product Category`"
+                    },
+                    {
+                      "name": "Product Category_associativity",
+                      "expression": "COUNT_IF(`associative_filter_predicate_group`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 2,
+              "widgetType": "filter-single-select",
+              "encodings": {
+                "fields": [
+                  {
+                    "fieldName": "Product Category",
+                    "displayName": "Product Category",
+                    "queryName": "dashboards/01f08290c009178cb573647f539e4607/datasets/01f082993a5113f8b5facd2e0d3f188e_Product Category"
+                  }
+                ]
+              },
+              "scale": {
+                "type": "categorical",
+                "sort": {
+                  "by": "custom-order",
+                  "orderedValues": [
+                    "Beauty",
+                    "Clothing",
+                    "Electronics"
+                  ]
+                }
+              },
+              "frame": {
+                "showTitle": true,
+                "title": "Product Category"
+              }
+            }
+          },
+          "position": {
+            "x": 3,
+            "y": 2,
+            "width": 2,
+            "height": 1
+          }
+        },
+        {
+          "widget": {
+            "name": "045e9137",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "bf3e6583",
+                  "fields": [
+                    {
+                      "name": "total_quantity",
+                      "expression": "`total_quantity`"
+                    },
+                    {
+                      "name": "total_amount",
+                      "expression": "`total_amount`"
+                    }
+                  ],
+                  "disaggregated": true
+                }
+              }
+            ],
+            "spec": {
+              "version": 3,
+              "widgetType": "scatter",
+              "encodings": {
+                "x": {
+                  "fieldName": "total_quantity",
+                  "scale": {
+                    "type": "quantitative"
+                  },
+                  "displayName": "Total Quantity"
+                },
+                "y": {
+                  "fieldName": "total_amount",
+                  "scale": {
+                    "type": "quantitative"
+                  },
+                  "displayName": "Total Amount"
+                }
+              },
+              "frame": {
+                "title": "Total Quantity & Amount Distribution",
+                "showTitle": true
+              },
+              "mark": {
+                "colors": [
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 3
+                  },
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 4
+                  },
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 5
+                  },
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 6
+                  },
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 7
+                  },
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 8
+                  },
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 9
+                  },
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 10
+                  }
+                ],
+                "size": 0
+              }
+            }
+          },
+          "position": {
+            "x": 3,
+            "y": 7,
+            "width": 3,
+            "height": 6
+          }
+        },
+        {
+          "widget": {
+            "name": "f8c784af",
+            "queries": [
+              {
+                "name": "dashboards/01f08290c009178cb573647f539e4607/datasets/01f0829217171429a7b5bf680e6c4c50_age_group",
+                "query": {
+                  "datasetName": "bf3e6583",
+                  "fields": [
+                    {
+                      "name": "age_group",
+                      "expression": "`age_group`"
+                    },
+                    {
+                      "name": "age_group_associativity",
+                      "expression": "COUNT_IF(`associative_filter_predicate_group`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 2,
+              "widgetType": "filter-single-select",
+              "encodings": {
+                "fields": [
+                  {
+                    "fieldName": "age_group",
+                    "displayName": "age_group",
+                    "queryName": "dashboards/01f08290c009178cb573647f539e4607/datasets/01f0829217171429a7b5bf680e6c4c50_age_group"
+                  }
+                ]
+              },
+              "frame": {
+                "showTitle": true,
+                "title": "Age Group"
+              }
+            }
+          },
+          "position": {
+            "x": 3,
+            "y": 1,
+            "width": 2,
+            "height": 1
+          }
+        },
+        {
+          "widget": {
+            "name": "e5f4941a",
+            "queries": [
+              {
+                "name": "dashboards/01f08290c009178cb573647f539e4607/datasets/01f0829217171429a7b5bf680e6c4c50_gender",
+                "query": {
+                  "datasetName": "bf3e6583",
+                  "fields": [
+                    {
+                      "name": "gender",
+                      "expression": "`gender`"
+                    },
+                    {
+                      "name": "gender_associativity",
+                      "expression": "COUNT_IF(`associative_filter_predicate_group`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 2,
+              "widgetType": "filter-single-select",
+              "encodings": {
+                "fields": [
+                  {
+                    "fieldName": "gender",
+                    "displayName": "gender",
+                    "queryName": "dashboards/01f08290c009178cb573647f539e4607/datasets/01f0829217171429a7b5bf680e6c4c50_gender"
+                  }
+                ]
+              },
+              "frame": {
+                "showTitle": true,
+                "title": "Gender"
+              }
+            }
+          },
+          "position": {
+            "x": 5,
+            "y": 0,
+            "width": 1,
+            "height": 1
+          }
+        },
+        {
+          "widget": {
+            "name": "de2baa4f",
+            "queries": [
+              {
+                "name": "dashboards/01f08290c009178cb573647f539e4607/datasets/01f0829217171429a7b5bf680e6c4c50_revenue_group",
+                "query": {
+                  "datasetName": "bf3e6583",
+                  "fields": [
+                    {
+                      "name": "revenue_group",
+                      "expression": "`revenue_group`"
+                    },
+                    {
+                      "name": "revenue_group_associativity",
+                      "expression": "COUNT_IF(`associative_filter_predicate_group`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 2,
+              "widgetType": "filter-single-select",
+              "encodings": {
+                "fields": [
+                  {
+                    "fieldName": "revenue_group",
+                    "displayName": "revenue_group",
+                    "queryName": "dashboards/01f08290c009178cb573647f539e4607/datasets/01f0829217171429a7b5bf680e6c4c50_revenue_group"
+                  }
+                ]
+              },
+              "frame": {
+                "showTitle": true,
+                "title": "Revenue"
+              }
+            }
+          },
+          "position": {
+            "x": 5,
+            "y": 1,
+            "width": 1,
+            "height": 1
+          }
+        },
+        {
+          "widget": {
+            "name": "40b70822",
+            "queries": [
+              {
+                "name": "dashboards/01f08290c009178cb573647f539e4607/datasets/01f0829217171429a7b5bf680e6c4c50_month_name",
+                "query": {
+                  "datasetName": "bf3e6583",
+                  "fields": [
+                    {
+                      "name": "month_name",
+                      "expression": "`month_name`"
+                    },
+                    {
+                      "name": "month_name_associativity",
+                      "expression": "COUNT_IF(`associative_filter_predicate_group`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 2,
+              "widgetType": "filter-single-select",
+              "encodings": {
+                "fields": [
+                  {
+                    "fieldName": "month_name",
+                    "displayName": "month_name",
+                    "queryName": "dashboards/01f08290c009178cb573647f539e4607/datasets/01f0829217171429a7b5bf680e6c4c50_month_name"
+                  }
+                ]
+              },
+              "frame": {
+                "showTitle": true,
+                "title": "month"
+              }
+            }
+          },
+          "position": {
+            "x": 5,
+            "y": 2,
+            "width": 1,
+            "height": 1
+          }
+        },
+        {
+          "widget": {
+            "name": "a9ab318f",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "bf3e6583",
+                  "fields": [
+                    {
+                      "name": "day",
+                      "expression": "`day`"
+                    },
+                    {
+                      "name": "sum(total_amount)",
+                      "expression": "SUM(`total_amount`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 1,
+              "widgetType": "combo",
+              "encodings": {
+                "y": {
+                  "primary": {
+                    "fields": [
+                      {
+                        "fieldName": "sum(total_amount)",
+                        "displayName": "Total Amount"
+                      }
+                    ]
+                  },
+                  "secondary": {
+                    "fields": [
+                      {
+                        "fieldName": "sum(total_amount)",
+                        "displayName": "Change over day"
+                      }
+                    ]
+                  },
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                },
+                "x": {
+                  "fieldName": "day",
+                  "scale": {
+                    "type": "categorical"
+                  },
+                  "displayName": "Days"
+                },
+                "label": {
+                  "show": false
+                }
+              },
+              "frame": {
+                "title": "Total Amount Distribution Per Day",
+                "showTitle": true
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 13,
+            "width": 6,
+            "height": 6
+          }
+        }
+      ],
+      "pageType": "PAGE_TYPE_CANVAS"
+    },
+    {
+      "name": "1f0c067e",
+      "displayName": "Untitled page 1",
+      "layout": [
+        {
+          "widget": {
+            "name": "d735c664",
+            "multilineTextboxSpec": {
+              "lines": [
+                "Retail Sales Dashboard"
+              ]
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 0,
+            "width": 6,
+            "height": 1
+          }
+        },
+        {
+          "widget": {
+            "name": "e0c225b3",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "bf3e6583",
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 3,
+              "widgetType": "bar",
+              "encodings": {},
+              "frame": {
+                "showTitle": true
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 1,
+            "width": 3,
+            "height": 6
+          }
+        }
+      ],
+      "pageType": "PAGE_TYPE_CANVAS"
+    }
+  ],
+  "uiSettings": {
+    "theme": {
+      "widgetHeaderAlignment": "ALIGNMENT_UNSPECIFIED"
+    }
+  }
+}
